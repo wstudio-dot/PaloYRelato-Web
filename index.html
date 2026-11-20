@@ -98,6 +98,7 @@
       border-radius: 14px;
       border: 2px solid #ffbb00;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
@@ -108,7 +109,7 @@
       box-shadow: 0 6px 22px rgba(255, 204, 0, 0.5);
     }
 
-    /* Botón destacado (ej. Último vídeo) */
+    /* Botón destacado */
     .link-btn.featured {
       background: linear-gradient(135deg, #8c1d36 0%, #5c1022 100%);
       border-color: #ffcc00;
@@ -117,6 +118,46 @@
     .link-btn.featured:hover {
       background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
       color: #070d1f;
+    }
+
+    /* Desplegable del juego */
+    .game-drawer {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background: #070d1f;
+      border: 2px solid #ffcc00;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: -5px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .game-drawer.open {
+      display: flex;
+    }
+
+    .game-frame {
+      width: 100%;
+      height: 420px;
+      border: none;
+      background: #000;
+    }
+
+    .game-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      background: #102048;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255, 204, 0, 0.3);
+    }
+
+    .game-bar a {
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     footer {
@@ -139,11 +180,44 @@
     <div class="links">
       <a class="link-btn" href="https://www.youtube.com/@PaloyRelato" target="_blank">🎬 YouTube</a>
       <a class="link-btn" href="https://www.tiktok.com/@paloyrelato" target="_blank">🎵 TikTok</a>
-      <a class="link-btn featured" href="https://paloyrelato.itch.io/" target="_blank">🎮 Mis juegos</a>
+      
+      <!-- Desplegable para jugar aquí mismo -->
+      <button class="link-btn featured" id="toggleGameBtn" onclick="toggleGame()">
+        🕹️ Jugar aquí mismo ▼
+      </button>
+
+      <div class="game-drawer" id="gameDrawer">
+        <iframe id="gameIframe" class="game-frame" data-src="juego/" title="Minijuego Palo y Relato"></iframe>
+        <div class="game-bar">
+          <span>Minijuego de Palo y Relato</span>
+          <a href="juego/" target="_blank">Pantalla completa ↗</a>
+        </div>
+      </div>
+
+      <a class="link-btn" href="https://paloyrelato.itch.io/" target="_blank">🎮 Más juegos en itch.io</a>
     </div>
 
     <footer>© 2026 Palo y Relato</footer>
   </div>
+
+  <script>
+    function toggleGame() {
+      const drawer = document.getElementById('gameDrawer');
+      const btn = document.getElementById('toggleGameBtn');
+      const iframe = document.getElementById('gameIframe');
+
+      drawer.classList.toggle('open');
+
+      if (drawer.classList.contains('open')) {
+        if (!iframe.src) {
+          iframe.src = iframe.getAttribute('data-src');
+        }
+        btn.innerHTML = '❌ Cerrar juego ▲';
+      } else {
+        btn.innerHTML = '🕹️ Jugar aquí mismo ▼';
+      }
+    }
+  </script>
 
 </body>
 </html>
