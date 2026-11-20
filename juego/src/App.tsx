@@ -474,7 +474,7 @@ function AppContent() {
           <div className="flex w-full max-w-6xl items-center justify-between gap-3">
             <div className="pointer-events-auto flex items-center gap-2.5">
               <img
-                src="/assets/aistudio/Palo_y_Relato__Historias_Estelares254_fbd1b8f1.jpg"
+                src="./assets/aistudio/logo.png"
                 alt="Logo de Palo y Relato"
                 decoding="async"
                 referrerPolicy="no-referrer"
