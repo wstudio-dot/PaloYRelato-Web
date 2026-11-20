@@ -1,0 +1,45 @@
+name: Publicar Linktree y Juego
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar y compilar el juego
+        working-directory: ./juego
+        run: |
+          npm install --legacy-peer-deps
+          npx vite build --base=./
+
+      - name: Preparar web final
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp logo.png _site/ 2>/dev/null || true
+          cp banner.png _site/ 2>/dev/null || true
+          cp -r juego/dist _site/juego
+
+      - name: Subir a GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: Publicar en GitHub Pages
+        uses: actions/deploy-pages@v4
