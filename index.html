@@ -30,15 +30,15 @@
       box-shadow: 0 4px 20px rgba(255, 204, 0, 0.25);
     }
 
-    /* Contenedor principal */
+    /* Contenedor principal un poco más ancho */
     .container {
       width: 100%;
-      max-width: 480px;
-      padding: 0 20px;
+      max-width: 560px; /* Antes estaba en 480px */
+      padding: 0 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: -65px; /* Superpone el logo sobre el banner */
+      margin-top: -65px;
     }
 
     /* Logo circular con borde brillante */
@@ -139,10 +139,12 @@
 
     .game-frame {
       width: 100%;
-      height: 420px;
+      height: 620px; /* Más alto para que quepa todo el escenario */
+      max-height: 80vh; /* Evita que desborde en pantallas pequeñas */
       border: none;
       background: #000;
     }
+
 
     .game-bar {
       display: flex;
