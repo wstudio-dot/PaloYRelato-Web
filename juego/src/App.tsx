@@ -511,7 +511,7 @@ function AppContent() {
 
           <div className="pointer-events-auto mb-20 flex max-w-xl flex-col items-center text-center sm:mb-32">
             <img
-              src="/assets/aistudio/Palo_y_Relato__Historias_Estelares254_fbd1b8f1.jpg"
+              src="./assets/aistudio/logo.png"
               alt="Emblema oficial de Palo y Relato"
               decoding="async"
               referrerPolicy="no-referrer"
