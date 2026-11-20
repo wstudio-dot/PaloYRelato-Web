@@ -1,0 +1,385 @@
+import type { PowerUpType, TriviaQuestion, UpgradeDef, UpgradeId } from './types';
+
+export const UPGRADES: UpgradeDef[] = [
+  {
+    id: 'magnet',
+    name: 'Imán de Atención',
+    description: 'Atrae cafés, respuestas clave, snacks y monedas hacia tu personaje.',
+    cost: 24,
+    maxLevel: 3,
+    category: 'Movilidad',
+  },
+  {
+    id: 'turbo_shoes',
+    name: 'Zapatillas Sin Pausa',
+    description: '+24% velocidad de movimiento y reacción en todos los actos.',
+    cost: 22,
+    maxLevel: 3,
+    category: 'Movilidad',
+  },
+  {
+    id: 'double_shot',
+    name: 'Mente Multitarea',
+    description: 'Dispara doble pulso en el Examen y amplía tu escudo con el mando.',
+    cost: 32,
+    maxLevel: 2,
+    category: 'Ofensiva',
+  },
+  {
+    id: 'auto_tune',
+    name: 'Afinador Viral',
+    description: 'Amplía un 40% la ventana de acierto en guitarra y suma +25% vistas.',
+    cost: 28,
+    maxLevel: 2,
+    category: 'Ofensiva',
+  },
+  {
+    id: 'comment_bots',
+    name: 'Bots de Comentarios',
+    description: 'Cada pocos segundos elimina automáticamente un peligro en pantalla.',
+    cost: 36,
+    maxLevel: 3,
+    category: 'Ofensiva',
+  },
+  {
+    id: 'chronometer',
+    name: 'Reloj de Edición',
+    description: 'Reduce un 14% por nivel la velocidad de todos los peligros entrantes.',
+    cost: 30,
+    maxLevel: 3,
+    category: 'Movilidad',
+  },
+  {
+    id: 'adblocker',
+    name: 'Bloqueador de Anuncios',
+    description: '20% de probabilidad por nivel de eliminar un peligro al impactar.',
+    cost: 34,
+    maxLevel: 2,
+    category: 'Defensa',
+  },
+  {
+    id: 'rage_armor',
+    name: 'Chaleco Anti-Haters',
+    description: 'Si recibes daño, limpia los peligros cercanos y te da más invulnerabilidad.',
+    cost: 30,
+    maxLevel: 2,
+    category: 'Defensa',
+  },
+  {
+    id: 'combo_shield',
+    name: 'Retención Blindada',
+    description: 'Al recibir daño, tu Combo solo cae a la mitad en vez de reiniciarse.',
+    cost: 30,
+    maxLevel: 1,
+    category: 'Defensa',
+  },
+  {
+    id: 'golden_shield',
+    name: 'Escudo de Hype',
+    description: 'Empiezas cada acto nuevo con 5 segundos de invencibilidad.',
+    cost: 36,
+    maxLevel: 2,
+    category: 'Defensa',
+  },
+  {
+    id: 'extra_heart',
+    name: 'Café Doble (+1 Vida)',
+    description: 'Aumenta +1 corazón máximo y te cura 1 punto de atención al instante.',
+    cost: 38,
+    maxLevel: 3,
+    category: 'Defensa',
+  },
+  {
+    id: 'coin_greed',
+    name: 'Monetización Activada',
+    description: '+45% monedas virales ganadas por nivel al recoger objetos o acertar.',
+    cost: 24,
+    maxLevel: 3,
+    category: 'Economía',
+  },
+  {
+    id: 'viral_multiplier',
+    name: 'Algoritmo Favorito',
+    description: '+35% vistas totales por nivel en todas las acciones y combos.',
+    cost: 34,
+    maxLevel: 3,
+    category: 'Economía',
+  },
+  {
+    id: 'clickbait',
+    name: 'Miniatura Clickbait',
+    description: 'Tu Combo mínimo sube +1 por nivel y ganas +30% vistas pasivas.',
+    cost: 32,
+    maxLevel: 3,
+    category: 'Economía',
+  },
+  {
+    id: 'coffee_thermos',
+    name: 'Termo Infinito',
+    description: 'Aparecen cafés, respuestas, snacks y monedas un 35% más a menudo.',
+    cost: 26,
+    maxLevel: 2,
+    category: 'Economía',
+  },
+  {
+    id: 'sponsor_deal',
+    name: 'Patrocinio Fijo',
+    description: 'Recibes +15 monedas extra cada vez que aparece una Trivia o pasas acto.',
+    cost: 28,
+    maxLevel: 3,
+    category: 'Economía',
+  },
+  {
+    id: 'trivia_scholar',
+    name: 'Cerebro Enciclopedia',
+    description: 'Acertar Trivias da +15 monedas extra y alarga +3s los Power-Ups.',
+    cost: 26,
+    maxLevel: 2,
+    category: 'Ofensiva',
+  },
+];
+
+export interface ShopConsumable {
+  id: PowerUpType;
+  name: string;
+  description: string;
+  cost: number;
+}
+
+export const SHOP_CONSUMABLES: ShopConsumable[] = [
+  {
+    id: 'INVINCIBLE',
+    name: 'Poción Invencible (8s)',
+    description: 'Activa invencibilidad inmediata al volver al juego.',
+    cost: 22,
+  },
+  {
+    id: 'DOUBLE_VIEWS',
+    name: 'Fiebre Viral x2 (9s)',
+    description: 'Duplica vistas y monedas durante los próximos 9 segundos.',
+    cost: 20,
+  },
+  {
+    id: 'SLOW_MO',
+    name: 'Cámara Lenta (8s)',
+    description: 'Frena todos los obstáculos al 50% de velocidad.',
+    cost: 18,
+  },
+  {
+    id: 'COIN_RAIN',
+    name: 'Lluvia de Monedas (8s)',
+    description: 'Hace llover monedas extra durante el acto actual.',
+    cost: 18,
+  },
+];
+
+export const POWERUP_INFO: Record<
+  PowerUpType,
+  { title: string; subtitle: string; color: string; duration: number }
+> = {
+  INVINCIBLE: {
+    title: 'Modo Invencible',
+    subtitle: 'Nada puede hacerte daño durante 8s',
+    color: '#16A34A',
+    duration: 8,
+  },
+  SLOW_MO: {
+    title: 'Cámara Lenta',
+    subtitle: 'Peligros al 50% de velocidad durante 8s',
+    color: '#2563EB',
+    duration: 8,
+  },
+  DOUBLE_VIEWS: {
+    title: 'Fiebre Viral x2',
+    subtitle: 'Vistas y monedas duplicadas durante 9s',
+    color: '#DC2626',
+    duration: 9,
+  },
+  COIN_RAIN: {
+    title: 'Lluvia de Patrocinio',
+    subtitle: 'Monedas extra cayendo durante 8s',
+    color: '#CA8A04',
+    duration: 8,
+  },
+};
+
+export function pickRandomUpgrades(
+  owned: Partial<Record<UpgradeId, number>>,
+  count: number,
+  excludeIds: UpgradeId[] = []
+): UpgradeDef[] {
+  const pool = UPGRADES.filter(
+    (u) => (owned[u.id] || 0) < u.maxLevel && !excludeIds.includes(u.id)
+  );
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+export const TRIVIA_BANK: TriviaQuestion[] = [
+  {
+    id: 'q1',
+    category: 'Ciencia',
+    question: '¿Qué orgánulo celular es conocido como la "central energética" de la célula?',
+    options: ['Mitocondria', 'Ribosoma', 'Lisosoma'],
+    correctIndex: 0,
+    rewardPowerUp: 'DOUBLE_VIEWS',
+    rewardLabel: 'Fiebre Viral x2',
+  },
+  {
+    id: 'q2',
+    category: 'Geografía',
+    question: '¿Cuál es el río más largo de Europa?',
+    options: ['Danubio', 'Volga', 'Rin'],
+    correctIndex: 1,
+    rewardPowerUp: 'SLOW_MO',
+    rewardLabel: 'Cámara Lenta',
+  },
+  {
+    id: 'q3',
+    category: 'Historia',
+    question: '¿En qué año llegó el ser humano a la Luna por primera vez?',
+    options: ['1965', '1969', '1972'],
+    correctIndex: 1,
+    rewardPowerUp: 'INVINCIBLE',
+    rewardLabel: 'Modo Invencible',
+  },
+  {
+    id: 'q4',
+    category: 'Arte',
+    question: '¿Quién pintó "La noche estrellada"?',
+    options: ['Claude Monet', 'Pablo Picasso', 'Vincent van Gogh'],
+    correctIndex: 2,
+    rewardPowerUp: 'COIN_RAIN',
+    rewardLabel: 'Lluvia de Monedas',
+  },
+  {
+    id: 'q5',
+    category: 'Música',
+    question: '¿Cuántas líneas tiene un pentagrama musical tradicional?',
+    options: ['5 líneas', '6 líneas', '4 líneas'],
+    correctIndex: 0,
+    rewardPowerUp: 'DOUBLE_VIEWS',
+    rewardLabel: 'Fiebre Viral x2',
+  },
+  {
+    id: 'q6',
+    category: 'Tecnología',
+    question: '¿Qué significa la sigla "HTTP" en una dirección web?',
+    options: [
+      'HyperText Transfer Protocol',
+      'High Tech Terminal Process',
+      'Hyperlink Tracking Tool',
+    ],
+    correctIndex: 0,
+    rewardPowerUp: 'SLOW_MO',
+    rewardLabel: 'Cámara Lenta',
+  },
+  {
+    id: 'q7',
+    category: 'Astronomía',
+    question: '¿Cuál es el planeta más grande del Sistema Solar?',
+    options: ['Saturno', 'Júpiter', 'Neptuno'],
+    correctIndex: 1,
+    rewardPowerUp: 'INVINCIBLE',
+    rewardLabel: 'Modo Invencible',
+  },
+  {
+    id: 'q8',
+    category: 'Literatura',
+    question: '¿Quién escribió "Don Quijote de la Mancha"?',
+    options: ['Lope de Vega', 'Miguel de Cervantes', 'Francisco de Quevedo'],
+    correctIndex: 1,
+    rewardPowerUp: 'COIN_RAIN',
+    rewardLabel: 'Lluvia de Monedas',
+  },
+  {
+    id: 'q9',
+    category: 'Química',
+    question: '¿Cuál es el símbolo químico del oro en la tabla periódica?',
+    options: ['Ag', 'Au', 'Fe'],
+    correctIndex: 1,
+    rewardPowerUp: 'COIN_RAIN',
+    rewardLabel: 'Lluvia de Monedas',
+  },
+  {
+    id: 'q10',
+    category: 'Música',
+    question: '¿Qué instrumento musical clásico suele tener 88 teclas?',
+    options: ['Acordeón', 'Piano', 'Órgano de mano'],
+    correctIndex: 1,
+    rewardPowerUp: 'DOUBLE_VIEWS',
+    rewardLabel: 'Fiebre Viral x2',
+  },
+  {
+    id: 'q11',
+    category: 'Biología',
+    question: '¿Cuántos corazones tiene un pulpo?',
+    options: ['1 corazón', '2 corazones', '3 corazones'],
+    correctIndex: 2,
+    rewardPowerUp: 'INVINCIBLE',
+    rewardLabel: 'Modo Invencible',
+  },
+  {
+    id: 'q12',
+    category: 'Geografía',
+    question: '¿Cuál es la capital de Australia?',
+    options: ['Sídney', 'Canberra', 'Melbourne'],
+    correctIndex: 1,
+    rewardPowerUp: 'SLOW_MO',
+    rewardLabel: 'Cámara Lenta',
+  },
+  {
+    id: 'q13',
+    category: 'Ciencia',
+    question: '¿Cuál es el metal más ligero de la tabla periódica?',
+    options: ['Aluminio', 'Litio', 'Magnesio'],
+    correctIndex: 1,
+    rewardPowerUp: 'DOUBLE_VIEWS',
+    rewardLabel: 'Fiebre Viral x2',
+  },
+  {
+    id: 'q14',
+    category: 'Matemáticas',
+    question: '¿Cuánto suman los ángulos interiores de cualquier triángulo?',
+    options: ['180°', '90°', '360°'],
+    correctIndex: 0,
+    rewardPowerUp: 'SLOW_MO',
+    rewardLabel: 'Cámara Lenta',
+  },
+  {
+    id: 'q15',
+    category: 'Historia',
+    question: '¿Qué civilización antigua construyó Machu Picchu?',
+    options: ['Azteca', 'Maya', 'Inca'],
+    correctIndex: 2,
+    rewardPowerUp: 'INVINCIBLE',
+    rewardLabel: 'Modo Invencible',
+  },
+  {
+    id: 'q16',
+    category: 'Física',
+    question: '¿Aproximadamente a qué velocidad viaja la luz en el vacío?',
+    options: ['300.000 km/s', '30.000 km/s', '3.000 km/s'],
+    correctIndex: 0,
+    rewardPowerUp: 'SLOW_MO',
+    rewardLabel: 'Cámara Lenta',
+  },
+  {
+    id: 'q17',
+    category: 'Cultura General',
+    question: '¿Cuál es el océano más extenso de la Tierra?',
+    options: ['Atlántico', 'Índico', 'Pacífico'],
+    correctIndex: 2,
+    rewardPowerUp: 'COIN_RAIN',
+    rewardLabel: 'Lluvia de Monedas',
+  },
+  {
+    id: 'q18',
+    category: 'Anatomía',
+    question: '¿Cuál es el hueso más largo del cuerpo humano?',
+    options: ['Húmero', 'Fémur', 'Tibia'],
+    correctIndex: 1,
+    rewardPowerUp: 'INVINCIBLE',
+    rewardLabel: 'Modo Invencible',
+  },
+];

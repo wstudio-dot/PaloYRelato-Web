@@ -1,0 +1,6 @@
+{
+  "name": "Sin Pausas: La Mente Viral",
+  "description": "Juego arcade en plano secuencia para itch.io basado en cortos virales de stickman: El Algoritmo, El Examen, Famoso Sin Partitura y Cancelado 24h Antes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
